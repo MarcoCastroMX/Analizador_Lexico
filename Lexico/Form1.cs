@@ -21,6 +21,9 @@ namespace Lexico
 
         private void BtnAnalizar_Click(object sender, EventArgs e)
         {
+            bool Identificador = true;
+            bool Real = false;
+            bool Punto = false;
             string Texto = TxtIngreseTexto.Text;
             int Estado = 0;
             for (int Indice = 0; Indice < Texto.Length; Indice++)
@@ -33,7 +36,9 @@ namespace Lexico
                         {
                             if (CodigoASCCI >= 65 && CodigoASCCI <= 122)
                             {
-                                Estado = 1;
+                                Estado = 0;
+                                Real = false;
+                                Punto = false;
                                 DataGridViewRow Fila = new DataGridViewRow();
                                 Fila.CreateCells(Tabla);
                                 Fila.Cells[0].Value = "Cadena";
@@ -41,9 +46,13 @@ namespace Lexico
                                 Fila.Cells[2].Value = "3";
                                 Tabla.Rows.Add(Fila);
                             }
-                            if (CodigoASCCI >= 48 && CodigoASCCI <= 57)
+                            if (CodigoASCCI >= 48 && CodigoASCCI <= 57 && !Real)
                             {
-                                Estado = 2;
+                                Estado = 0;
+                                Real = true;
+                                Punto = false;
+                                if (Indice == 0)
+                                    Identificador = false;
                                 DataGridViewRow Fila = new DataGridViewRow();
                                 Fila.CreateCells(Tabla);
                                 Fila.Cells[0].Value = "Entero";
@@ -51,57 +60,19 @@ namespace Lexico
                                 Fila.Cells[2].Value = "1";
                                 Tabla.Rows.Add(Fila);
                             }
-                            break;
-                        }
-                    case 1:
-                        {
-                            if (CodigoASCCI >= 65 && CodigoASCCI <= 122)
+                            if (CodigoASCCI >= 48 && CodigoASCCI <= 57 && Real && Punto)
                             {
-                                Estado = 1;
                                 DataGridViewRow Fila = new DataGridViewRow();
                                 Fila.CreateCells(Tabla);
-                                Fila.Cells[0].Value = "Cadena";
+                                Fila.Cells[0].Value = "Real";
                                 Fila.Cells[1].Value = Texto[Indice];
-                                Fila.Cells[2].Value = "3";
+                                Fila.Cells[2].Value = "2";
                                 Tabla.Rows.Add(Fila);
                             }
-                            if(CodigoASCCI>=48 && CodigoASCCI <= 57)
+                            if (CodigoASCCI == 46 && Real)
                             {
-                                Estado = 1;
-                                DataGridViewRow Fila = new DataGridViewRow();
-                                Fila.CreateCells(Tabla);
-                                Fila.Cells[0].Value = "Entero";
-                                Fila.Cells[1].Value = Texto[Indice];
-                                Fila.Cells[2].Value = "1";
-                                Tabla.Rows.Add(Fila);
-                            }
-                            if (Indice + 1 == Texto.Length)
-                            {
-                                Estado = 1;
-                                DataGridViewRow Fila = new DataGridViewRow();
-                                Fila.CreateCells(Tabla);
-                                Fila.Cells[0].Value = "Identificador";
-                                Fila.Cells[1].Value = Texto;
-                                Fila.Cells[2].Value = "0";
-                                Tabla.Rows.Add(Fila);
-                            }
-                            break;
-                        }
-                    case 2:
-                        {
-                            if (CodigoASCCI >= 48 && CodigoASCCI <= 57)
-                            {
-                                Estado = 2;
-                                DataGridViewRow Fila = new DataGridViewRow();
-                                Fila.CreateCells(Tabla);
-                                Fila.Cells[0].Value = "Entero";
-                                Fila.Cells[1].Value = Texto[Indice];
-                                Fila.Cells[2].Value = "1";
-                                Tabla.Rows.Add(Fila);
-                            }
-                            if (CodigoASCCI==46)
-                            {
-                                Estado = 3;
+                                Estado = 0;
+                                Punto = true;
                                 DataGridViewRow Fila = new DataGridViewRow();
                                 Fila.CreateCells(Tabla);
                                 Fila.Cells[0].Value = "Punto";
@@ -109,42 +80,30 @@ namespace Lexico
                                 Fila.Cells[2].Value = "24";
                                 Tabla.Rows.Add(Fila);
                             }
-                            break;
-                        }
-                    case 3:
-                        {
-                            if (CodigoASCCI >= 48 && CodigoASCCI <= 57)
+                            if (CodigoASCCI == 43 || CodigoASCCI == 45)
                             {
-                                Estado = 4;
+                                Estado = 0;
+                                Real = false;
+                                Identificador = false;
                                 DataGridViewRow Fila = new DataGridViewRow();
                                 Fila.CreateCells(Tabla);
-                                Fila.Cells[0].Value = "Real";
+                                Fila.Cells[0].Value = "OpSuma";
                                 Fila.Cells[1].Value = Texto[Indice];
-                                Fila.Cells[2].Value = "2";
-                                Tabla.Rows.Add(Fila);
-                            }
-                            break;
-                        }
-                    case 4:
-                        {
-                            if (CodigoASCCI >= 48 && CodigoASCCI <= 57)
-                            {
-                                Estado = 4;
-                                DataGridViewRow Fila = new DataGridViewRow();
-                                Fila.CreateCells(Tabla);
-                                Fila.Cells[0].Value = "Real";
-                                Fila.Cells[1].Value = Texto[Indice];
-                                Fila.Cells[2].Value = "2";
+                                Fila.Cells[2].Value = "5";
                                 Tabla.Rows.Add(Fila);
                             }
                             break;
                         }
                 }
             }
-            System.Diagnostics.Debug.WriteLine(Estado);
-            if(Estado!=1 && Estado!=2 && Estado!=4)
+            if (Identificador)
             {
-                MessageBox.Show("Token Desconocido");
+                DataGridViewRow Fila = new DataGridViewRow();
+                Fila.CreateCells(Tabla);
+                Fila.Cells[0].Value = "Identificador";
+                Fila.Cells[1].Value = Texto;
+                Fila.Cells[2].Value = "0";
+                Tabla.Rows.Add(Fila);
             }
         }
     }
