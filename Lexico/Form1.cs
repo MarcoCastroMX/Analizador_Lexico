@@ -15,6 +15,8 @@ namespace Lexico
         public Form1()
         {
             InitializeComponent();
+            Tabla.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+                
         }
     }
 }
