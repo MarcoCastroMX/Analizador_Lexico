@@ -34,7 +34,7 @@
             this.Simbolo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Token = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Tipo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.button1 = new System.Windows.Forms.Button();
+            this.BtnAnalizar = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.Tabla)).BeginInit();
             this.SuspendLayout();
             // 
@@ -91,22 +91,23 @@
             this.Tipo.Name = "Tipo";
             this.Tipo.ReadOnly = true;
             // 
-            // button1
+            // BtnAnalizar
             // 
-            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.Location = new System.Drawing.Point(115, 429);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(164, 48);
-            this.button1.TabIndex = 4;
-            this.button1.Text = "Analizar";
-            this.button1.UseVisualStyleBackColor = true;
+            this.BtnAnalizar.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnAnalizar.Location = new System.Drawing.Point(115, 429);
+            this.BtnAnalizar.Name = "BtnAnalizar";
+            this.BtnAnalizar.Size = new System.Drawing.Size(164, 48);
+            this.BtnAnalizar.TabIndex = 4;
+            this.BtnAnalizar.Text = "Analizar";
+            this.BtnAnalizar.UseVisualStyleBackColor = true;
+            this.BtnAnalizar.Click += new System.EventHandler(this.BtnAnalizar_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(417, 505);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.BtnAnalizar);
             this.Controls.Add(this.Tabla);
             this.Controls.Add(this.LbIngrese);
             this.Controls.Add(this.TxtIngreseTexto);
@@ -126,7 +127,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Simbolo;
         private System.Windows.Forms.DataGridViewTextBoxColumn Token;
         private System.Windows.Forms.DataGridViewTextBoxColumn Tipo;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button BtnAnalizar;
     }
 }
 
