@@ -1,0 +1,8 @@
+C:\Users\marco\OneDrive\Documentos\Documentos\CUCEI\6to Semestre\Seminario de Traductores de Lenguaje 2\Modulo1\Analizador_Lexico\Lexico\bin\Debug\Lexico.exe.config
+C:\Users\marco\OneDrive\Documentos\Documentos\CUCEI\6to Semestre\Seminario de Traductores de Lenguaje 2\Modulo1\Analizador_Lexico\Lexico\bin\Debug\Lexico.exe
+C:\Users\marco\OneDrive\Documentos\Documentos\CUCEI\6to Semestre\Seminario de Traductores de Lenguaje 2\Modulo1\Analizador_Lexico\Lexico\bin\Debug\Lexico.pdb
+C:\Users\marco\OneDrive\Documentos\Documentos\CUCEI\6to Semestre\Seminario de Traductores de Lenguaje 2\Modulo1\Analizador_Lexico\Lexico\obj\Debug\Lexico.csprojAssemblyReference.cache
+C:\Users\marco\OneDrive\Documentos\Documentos\CUCEI\6to Semestre\Seminario de Traductores de Lenguaje 2\Modulo1\Analizador_Lexico\Lexico\obj\Debug\Lexico.Properties.Resources.resources
+C:\Users\marco\OneDrive\Documentos\Documentos\CUCEI\6to Semestre\Seminario de Traductores de Lenguaje 2\Modulo1\Analizador_Lexico\Lexico\obj\Debug\Lexico.csproj.GenerateResource.cache
+C:\Users\marco\OneDrive\Documentos\Documentos\CUCEI\6to Semestre\Seminario de Traductores de Lenguaje 2\Modulo1\Analizador_Lexico\Lexico\obj\Debug\Lexico.exe
+C:\Users\marco\OneDrive\Documentos\Documentos\CUCEI\6to Semestre\Seminario de Traductores de Lenguaje 2\Modulo1\Analizador_Lexico\Lexico\obj\Debug\Lexico.pdb
