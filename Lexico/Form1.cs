@@ -25,6 +25,10 @@ namespace Lexico
             bool Real = false;
             bool Punto = false;
             bool Or = false;
+            bool And = false;
+            bool Relacion = false;
+            bool Asignacion = false;
+            bool Igual = true;
             string Texto = TxtIngreseTexto.Text;
             int Estado = 0;
             for (int Indice = 0; Indice < Texto.Length; Indice++)
@@ -40,6 +44,8 @@ namespace Lexico
                                 Estado = 0;
                                 Real = false;
                                 Punto = false;
+                                Asignacion = false;
+                                Relacion = false;
                                 DataGridViewRow Fila = new DataGridViewRow();
                                 Fila.CreateCells(Tabla);
                                 Fila.Cells[0].Value = "Cadena";
@@ -52,6 +58,8 @@ namespace Lexico
                                 Estado = 0;
                                 Real = true;
                                 Punto = false;
+                                Asignacion = false;
+                                Relacion = false;
                                 if (Indice == 0)
                                     Identificador = false;
                                 DataGridViewRow Fila = new DataGridViewRow();
@@ -63,6 +71,8 @@ namespace Lexico
                             }
                             if (CodigoASCCI >= 48 && CodigoASCCI <= 57 && Real && Punto)
                             {
+                                Asignacion = false;
+                                Relacion = false;
                                 DataGridViewRow Fila = new DataGridViewRow();
                                 Fila.CreateCells(Tabla);
                                 Fila.Cells[0].Value = "Real";
@@ -75,6 +85,8 @@ namespace Lexico
                                 Estado = 0;
                                 Punto = true;
                                 Identificador = false;
+                                Asignacion = false;
+                                Relacion = false;
                                 DataGridViewRow Fila = new DataGridViewRow();
                                 Fila.CreateCells(Tabla);
                                 Fila.Cells[0].Value = "Punto";
@@ -87,6 +99,8 @@ namespace Lexico
                                 Estado = 0;
                                 Real = false;
                                 Identificador = false;
+                                Asignacion = false;
+                                Relacion = false;
                                 DataGridViewRow Fila = new DataGridViewRow();
                                 Fila.CreateCells(Tabla);
                                 Fila.Cells[0].Value = "OpSuma";
@@ -99,6 +113,8 @@ namespace Lexico
                                 Estado = 0;
                                 Real = false;
                                 Identificador = false;
+                                Asignacion = false;
+                                Relacion = false;
                                 DataGridViewRow Fila = new DataGridViewRow();
                                 Fila.CreateCells(Tabla);
                                 Fila.Cells[0].Value = "OpMul";
@@ -111,11 +127,55 @@ namespace Lexico
                                 Estado = 0;
                                 Real = false;
                                 Identificador = false;
+                                if (Asignacion)
+                                {
+                                    DataGridViewRow Fila = new DataGridViewRow();
+                                    Fila.CreateCells(Tabla);
+                                    Fila.Cells[0].Value = "OpIgualdad";
+                                    Fila.Cells[1].Value = Texto[Indice];
+                                    Fila.Cells[2].Value = "11";
+                                    Tabla.Rows.Add(Fila);
+                                    Asignacion = false;
+                                    Igual = false;
+                                }                               
+                                if (Relacion)
+                                {
+                                    DataGridViewRow Fila = new DataGridViewRow();
+                                    Fila.CreateCells(Tabla);
+                                    Fila.Cells[0].Value = "OpRelac";
+                                    Fila.Cells[1].Value = Texto[Indice];
+                                    Fila.Cells[2].Value = "7";
+                                    Tabla.Rows.Add(Fila);
+                                    Relacion = false;
+                                    Igual = false;
+                                }
+                                if(Igual)
+                                {
+                                    DataGridViewRow Fila = new DataGridViewRow();
+                                    Fila.CreateCells(Tabla);
+                                    Fila.Cells[0].Value = "Asignacion";
+                                    Fila.Cells[1].Value = Texto[Indice];
+                                    Fila.Cells[2].Value = "18";
+                                    Tabla.Rows.Add(Fila);
+                                    Asignacion = true;
+                                }
+                                else
+                                {
+                                    Igual = true;
+                                }
+                            }
+                            if (CodigoASCCI == 60 || CodigoASCCI==62)
+                            {
+                                Estado = 0;
+                                Real = false;
+                                Identificador = false;
+                                Asignacion = false;
+                                Relacion = true;
                                 DataGridViewRow Fila = new DataGridViewRow();
                                 Fila.CreateCells(Tabla);
-                                Fila.Cells[0].Value = "Asignacion";
+                                Fila.Cells[0].Value = "OpRelac";
                                 Fila.Cells[1].Value = Texto[Indice];
-                                Fila.Cells[2].Value = "18";
+                                Fila.Cells[2].Value = "7";
                                 Tabla.Rows.Add(Fila);
                             }
                             if (CodigoASCCI == 59)
@@ -123,6 +183,8 @@ namespace Lexico
                                 Estado = 0;
                                 Real = false;
                                 Identificador = false;
+                                Asignacion = false;
+                                Relacion = false;
                                 DataGridViewRow Fila = new DataGridViewRow();
                                 Fila.CreateCells(Tabla);
                                 Fila.Cells[0].Value = "PuntoComa";
@@ -135,6 +197,8 @@ namespace Lexico
                                 Estado = 0;
                                 Real = false;
                                 Identificador = false;
+                                Asignacion = false;
+                                Relacion = false;
                                 DataGridViewRow Fila = new DataGridViewRow();
                                 Fila.CreateCells(Tabla);
                                 Fila.Cells[0].Value = "Coma";
@@ -147,6 +211,8 @@ namespace Lexico
                                 Estado = 0;
                                 Real = false;
                                 Identificador = false;
+                                Asignacion = false;
+                                Relacion = false;
                                 DataGridViewRow Fila = new DataGridViewRow();
                                 Fila.CreateCells(Tabla);
                                 Fila.Cells[0].Value = "AbreParentesis";
@@ -159,6 +225,8 @@ namespace Lexico
                                 Estado = 0;
                                 Real = false;
                                 Identificador = false;
+                                Asignacion = false;
+                                Relacion = false;
                                 DataGridViewRow Fila = new DataGridViewRow();
                                 Fila.CreateCells(Tabla);
                                 Fila.Cells[0].Value = "CierraParentesis";
@@ -171,6 +239,8 @@ namespace Lexico
                                 Estado = 0;
                                 Real = false;
                                 Identificador = false;
+                                Asignacion = false;
+                                Relacion = false;
                                 DataGridViewRow Fila = new DataGridViewRow();
                                 Fila.CreateCells(Tabla);
                                 Fila.Cells[0].Value = "AbreLlaves";
@@ -183,6 +253,8 @@ namespace Lexico
                                 Estado = 0;
                                 Real = false;
                                 Identificador = false;
+                                Asignacion = false;
+                                Relacion = false;
                                 DataGridViewRow Fila = new DataGridViewRow();
                                 Fila.CreateCells(Tabla);
                                 Fila.Cells[0].Value = "CierraLlaves";
@@ -195,6 +267,8 @@ namespace Lexico
                                 Estado = 0;
                                 Real = false;
                                 Identificador = false;
+                                Asignacion = false;
+                                Relacion = false;
                                 DataGridViewRow Fila = new DataGridViewRow();
                                 Fila.CreateCells(Tabla);
                                 Fila.Cells[0].Value = "OpNot";
@@ -204,6 +278,11 @@ namespace Lexico
                             }
                             if (CodigoASCCI == 124)
                             {
+                                Estado = 0;
+                                Real = false;
+                                Identificador = false;
+                                Asignacion = false;
+                                Relacion = false;
                                 if (Or)
                                 {
                                     DataGridViewRow Fila = new DataGridViewRow();
@@ -215,12 +294,29 @@ namespace Lexico
                                     Or = false;
                                 }
                                 else
-                                {
-                                    Estado = 0;
-                                    Real = false;
-                                    Identificador = false;
                                     Or = true;
-                                }      
+                                    
+                            }
+                            if (CodigoASCCI == 38)
+                            {
+                                Estado = 0;
+                                Real = false;
+                                Identificador = false;
+                                Asignacion = false;
+                                Relacion = false;
+                                if (And)
+                                {
+                                    DataGridViewRow Fila = new DataGridViewRow();
+                                    Fila.CreateCells(Tabla);
+                                    Fila.Cells[0].Value = "OpAnd";
+                                    Fila.Cells[1].Value = Texto[Indice];
+                                    Fila.Cells[2].Value = "9";
+                                    Tabla.Rows.Add(Fila);
+                                    And = false;
+                                }
+                                else
+                                    And = true;
+                                
                             }
                             break;
                         }
