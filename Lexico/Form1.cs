@@ -1,11 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Lexico
@@ -16,7 +9,6 @@ namespace Lexico
         {
             InitializeComponent();
             Tabla.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-
         }
 
         private void BtnAnalizar_Click(object sender, EventArgs e)
@@ -29,11 +21,14 @@ namespace Lexico
             bool Relacion = false;
             bool Asignacion = false;
             bool Igual = true;
+            bool Diferente = false;
             string Texto = TxtIngreseTexto.Text;
             int Estado = 0;
+            string Contenido = "";
             for (int Indice = 0; Indice < Texto.Length; Indice++)
             {
                 char Caracter = Texto[Indice];
+                Contenido += Caracter;
                 int CodigoASCCI = Caracter;
                 switch (Estado)
                 {
@@ -122,6 +117,8 @@ namespace Lexico
                                 Fila.Cells[2].Value = "6";
                                 Tabla.Rows.Add(Fila);
                             }
+
+
                             if (CodigoASCCI == 61)
                             {
                                 Estado = 0;
@@ -149,7 +146,18 @@ namespace Lexico
                                     Relacion = false;
                                     Igual = false;
                                 }
-                                if(Igual)
+                                if (Diferente)
+                                {
+                                    DataGridViewRow Fila = new DataGridViewRow();
+                                    Fila.CreateCells(Tabla);
+                                    Fila.Cells[0].Value = "OpIgualdad";
+                                    Fila.Cells[1].Value = Texto[Indice];
+                                    Fila.Cells[2].Value = "11";
+                                    Tabla.Rows.Add(Fila);
+                                    Diferente = false;
+                                    Igual = false;
+                                }
+                                if (Igual)
                                 {
                                     DataGridViewRow Fila = new DataGridViewRow();
                                     Fila.CreateCells(Tabla);
@@ -269,6 +277,7 @@ namespace Lexico
                                 Identificador = false;
                                 Asignacion = false;
                                 Relacion = false;
+                                Diferente = true;
                                 DataGridViewRow Fila = new DataGridViewRow();
                                 Fila.CreateCells(Tabla);
                                 Fila.Cells[0].Value = "OpNot";
@@ -317,6 +326,76 @@ namespace Lexico
                                 else
                                     And = true;
                                 
+                            }
+                            if (Contenido.Contains("int"))
+                            {
+                                Contenido = "";
+                                DataGridViewRow Fila = new DataGridViewRow();
+                                Fila.CreateCells(Tabla);
+                                Fila.Cells[0].Value = "Tipo";
+                                Fila.Cells[1].Value = "int";
+                                Fila.Cells[2].Value = "4";
+                                Tabla.Rows.Add(Fila);
+                            }
+                            if (Contenido.Contains("float"))
+                            {
+                                Contenido = "";
+                                DataGridViewRow Fila = new DataGridViewRow();
+                                Fila.CreateCells(Tabla);
+                                Fila.Cells[0].Value = "Tipo";
+                                Fila.Cells[1].Value = "float";
+                                Fila.Cells[2].Value = "4";
+                                Tabla.Rows.Add(Fila);
+                            }
+                            if (Contenido.Contains("void"))
+                            {
+                                Contenido = "";
+                                DataGridViewRow Fila = new DataGridViewRow();
+                                Fila.CreateCells(Tabla);
+                                Fila.Cells[0].Value = "Tipo";
+                                Fila.Cells[1].Value = "void";
+                                Fila.Cells[2].Value = "4";
+                                Tabla.Rows.Add(Fila);
+                            }
+                            if (Contenido.Contains("if"))
+                            {
+                                Contenido = "";
+                                DataGridViewRow Fila = new DataGridViewRow();
+                                Fila.CreateCells(Tabla);
+                                Fila.Cells[0].Value = "Reservada";
+                                Fila.Cells[1].Value = "if";
+                                Fila.Cells[2].Value = "19";
+                                Tabla.Rows.Add(Fila);
+                            }
+                            if (Contenido.Contains("while"))
+                            {
+                                Contenido = "";
+                                DataGridViewRow Fila = new DataGridViewRow();
+                                Fila.CreateCells(Tabla);
+                                Fila.Cells[0].Value = "Reservada";
+                                Fila.Cells[1].Value = "while";
+                                Fila.Cells[2].Value = "20";
+                                Tabla.Rows.Add(Fila);
+                            }
+                            if (Contenido.Contains("return"))
+                            {
+                                Contenido = "";
+                                DataGridViewRow Fila = new DataGridViewRow();
+                                Fila.CreateCells(Tabla);
+                                Fila.Cells[0].Value = "Reservada";
+                                Fila.Cells[1].Value = "return";
+                                Fila.Cells[2].Value = "21";
+                                Tabla.Rows.Add(Fila);
+                            }
+                            if (Contenido.Contains("$"))
+                            {
+                                Contenido = "";
+                                DataGridViewRow Fila = new DataGridViewRow();
+                                Fila.CreateCells(Tabla);
+                                Fila.Cells[0].Value = "Fin";
+                                Fila.Cells[1].Value = Texto[Indice];
+                                Fila.Cells[2].Value = "23";
+                                Tabla.Rows.Add(Fila);
                             }
                             break;
                         }
