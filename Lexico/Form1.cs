@@ -41,9 +41,15 @@ namespace Lexico
                                 Fila.Cells[2].Value = "3";
                                 Tabla.Rows.Add(Fila);
                             }
-                            else
+                            if (CodigoASCCI >= 48 && CodigoASCCI <= 57)
                             {
-                                Estado = -1;
+                                Estado = 2;
+                                DataGridViewRow Fila = new DataGridViewRow();
+                                Fila.CreateCells(Tabla);
+                                Fila.Cells[0].Value = "Entero";
+                                Fila.Cells[1].Value = Texto[Indice];
+                                Fila.Cells[2].Value = "1";
+                                Tabla.Rows.Add(Fila);
                             }
                             break;
                         }
@@ -81,14 +87,64 @@ namespace Lexico
                             }
                             break;
                         }
-                    case -1:
+                    case 2:
                         {
-                            MessageBox.Show("Token Desconocido");
-                            Estado = 0;
+                            if (CodigoASCCI >= 48 && CodigoASCCI <= 57)
+                            {
+                                Estado = 2;
+                                DataGridViewRow Fila = new DataGridViewRow();
+                                Fila.CreateCells(Tabla);
+                                Fila.Cells[0].Value = "Entero";
+                                Fila.Cells[1].Value = Texto[Indice];
+                                Fila.Cells[2].Value = "1";
+                                Tabla.Rows.Add(Fila);
+                            }
+                            if (CodigoASCCI==46)
+                            {
+                                Estado = 3;
+                                DataGridViewRow Fila = new DataGridViewRow();
+                                Fila.CreateCells(Tabla);
+                                Fila.Cells[0].Value = "Punto";
+                                Fila.Cells[1].Value = Texto[Indice];
+                                Fila.Cells[2].Value = "24";
+                                Tabla.Rows.Add(Fila);
+                            }
                             break;
                         }
-
+                    case 3:
+                        {
+                            if (CodigoASCCI >= 48 && CodigoASCCI <= 57)
+                            {
+                                Estado = 4;
+                                DataGridViewRow Fila = new DataGridViewRow();
+                                Fila.CreateCells(Tabla);
+                                Fila.Cells[0].Value = "Real";
+                                Fila.Cells[1].Value = Texto[Indice];
+                                Fila.Cells[2].Value = "2";
+                                Tabla.Rows.Add(Fila);
+                            }
+                            break;
+                        }
+                    case 4:
+                        {
+                            if (CodigoASCCI >= 48 && CodigoASCCI <= 57)
+                            {
+                                Estado = 4;
+                                DataGridViewRow Fila = new DataGridViewRow();
+                                Fila.CreateCells(Tabla);
+                                Fila.Cells[0].Value = "Real";
+                                Fila.Cells[1].Value = Texto[Indice];
+                                Fila.Cells[2].Value = "2";
+                                Tabla.Rows.Add(Fila);
+                            }
+                            break;
+                        }
                 }
+            }
+            System.Diagnostics.Debug.WriteLine(Estado);
+            if(Estado!=1 && Estado!=2 && Estado!=4)
+            {
+                MessageBox.Show("Token Desconocido");
             }
         }
     }
